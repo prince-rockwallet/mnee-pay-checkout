@@ -75,7 +75,7 @@ export function PaymentConfirmation({
   apiBaseUrl,
   buttonId,
   amountUsdCents,
-  checkoutType,
+  // checkoutType,
   customerEmail,
   customerPhone,
   selectedOptions,
