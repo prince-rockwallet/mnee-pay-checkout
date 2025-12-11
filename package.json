@@ -1,6 +1,6 @@
 {
   "name": "@mnee-pay/checkout",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Checkout component for MNEE Pay hosted buttons",
   "type": "module",
   "main": "./dist/mnee-checkout.umd.js",

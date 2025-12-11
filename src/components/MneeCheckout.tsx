@@ -373,7 +373,12 @@ function CheckoutContent(props: MneeCheckoutProps) {
     return (
       <div className={cn(resolvedTheme, className)}>
         <button
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            if (typeof window === 'undefined') {
+              return;
+            }
+            window.location.reload();
+          }}
           className="bg-destructive text-destructive-foreground px-6 py-3 rounded-lg hover:bg-destructive/90"
         >
           {configError || 'Configuration error'} - Click to retry

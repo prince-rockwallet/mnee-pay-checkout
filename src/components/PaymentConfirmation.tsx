@@ -255,6 +255,9 @@ export function PaymentConfirmation({
     try {
       // Yours Wallet: Direct MNEE transfer
       if (walletProvider === "yours") {
+        if (typeof window === 'undefined') {
+          return;
+        }
         const wallet = (window as any).yours;
         if (!wallet) {
           throw new Error("Yours Wallet not found");

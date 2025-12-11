@@ -27,6 +27,9 @@ const initialState: UserInfo = {
 
 // Load user info from localStorage
 const loadUserInfoFromStorage = (): UserInfo => {
+  if (typeof window === 'undefined') {
+    return initialState;
+  }
   try {
     const stored = localStorage.getItem(USER_INFO_STORAGE_KEY);
     if (stored) {
@@ -40,6 +43,9 @@ const loadUserInfoFromStorage = (): UserInfo => {
 
 // Save user info to localStorage
 const saveUserInfoToStorage = (userInfo: UserInfo) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
   try {
     localStorage.setItem(USER_INFO_STORAGE_KEY, JSON.stringify(userInfo));
   } catch (error) {
@@ -69,6 +75,9 @@ export function UserInfoProvider({ children }: { children: ReactNode }) {
 
   const clearUserInfo = useCallback(() => {
     setUserInfo(initialState);
+    if (typeof window === 'undefined') {
+      return;
+    }
     localStorage.removeItem(USER_INFO_STORAGE_KEY);
   }, []);
 

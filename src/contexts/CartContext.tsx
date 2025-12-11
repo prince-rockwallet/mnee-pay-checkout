@@ -103,10 +103,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       });
     };
 
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     window.addEventListener('storage', handleStorageChange);
     window.addEventListener(CART_UPDATE_EVENT, handleCartUpdate as EventListener);
 
     return () => {
+      if (typeof window === 'undefined') {
+        return;
+      }
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener(CART_UPDATE_EVENT, handleCartUpdate as EventListener);
     };
