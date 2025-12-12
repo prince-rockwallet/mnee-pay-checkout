@@ -36,7 +36,7 @@ export function DonationCheckout({
   taxRatePercent,
 }: DonationCheckoutProps) {
   const { formData, updateFormData, setErrors, errors } = useCheckout();
-  const { userInfo, setEmail } = useUserInfo();
+  const { userInfo, setEmail, setPhone } = useUserInfo();
 
   const defaultSuggestedAmounts = [5, 10, 25, 50];
   const suggestedAmounts = config?.suggestedAmounts || defaultSuggestedAmounts;
@@ -50,6 +50,9 @@ export function DonationCheckout({
   useEffect(() => {
     if (collectEmail && userInfo.email && !formData.email) {
       updateFormData({ email: userInfo.email });
+    }
+    if (collectPhone && userInfo.phone && !formData.phone) {
+      updateFormData({ phone: userInfo.phone });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount
@@ -152,6 +155,11 @@ export function DonationCheckout({
     // Save email to localStorage for future use
     if (collectEmail && formData.email) {
       setEmail(formData.email);
+    }
+
+    // Save phone to localStorage for future use
+    if (collectPhone && formData.phone) {
+      setPhone(formData.phone);
     }
 
     // IMPORTANT: Ensure donation amount is in formData before proceeding
@@ -351,7 +359,10 @@ export function DonationCheckout({
                     type="tel"
                     placeholder="+1 (555) 123-4567"
                     value={formData.phone || ''}
-                    onChange={(e) => updateFormData({ phone: e.target.value })}
+                    onChange={(e) => {
+                      updateFormData({ phone: e.target.value });
+                      setPhone(e.target.value);
+                    }}
                     onBlur={handleContactBlur}
                     className={errors.phone ? 'border-destructive' : ''}
                   />

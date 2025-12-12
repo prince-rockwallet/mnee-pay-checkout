@@ -3,6 +3,7 @@ import { ShippingAddress, ContactInfo } from '@/types';
 
 interface UserInfo {
   email?: string;
+  phone?: string;
   shipping?: ShippingAddress;
   contact?: ContactInfo;
 }
@@ -10,6 +11,7 @@ interface UserInfo {
 interface UserInfoContextValue {
   userInfo: UserInfo;
   setEmail: (email: string) => void;
+  setPhone: (phone: string) => void;
   setShipping: (shipping: ShippingAddress) => void;
   setContact: (contact: ContactInfo) => void;
   clearUserInfo: () => void;
@@ -21,6 +23,7 @@ const USER_INFO_STORAGE_KEY = 'mnee-checkout-user-info';
 
 const initialState: UserInfo = {
   email: undefined,
+  phone: undefined,
   shipping: undefined,
   contact: undefined,
 };
@@ -65,6 +68,10 @@ export function UserInfoProvider({ children }: { children: ReactNode }) {
     setUserInfo(prev => ({ ...prev, email }));
   }, []);
 
+  const setPhone = useCallback((phone: string) => {
+    setUserInfo(prev => ({ ...prev, phone }));
+  }, []);
+
   const setShipping = useCallback((shipping: ShippingAddress) => {
     setUserInfo(prev => ({ ...prev, shipping }));
   }, []);
@@ -84,6 +91,7 @@ export function UserInfoProvider({ children }: { children: ReactNode }) {
   const value: UserInfoContextValue = {
     userInfo,
     setEmail,
+    setPhone,
     setShipping,
     setContact,
     clearUserInfo,
